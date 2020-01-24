@@ -1,8 +1,11 @@
+// TODO: remove usage of Ember Data's private `Errors` class when refactoring validations
+// eslint-disable-next-line
 import DS from 'ember-data';
 import IntegrationValidator from 'ghost-admin/validators/integration';
 import InviteUserValidator from 'ghost-admin/validators/invite-user';
+import MemberValidator from 'ghost-admin/validators/member';
 import Mixin from '@ember/object/mixin';
-import Model from 'ember-data/model';
+import Model from '@ember-data/model';
 import NavItemValidator from 'ghost-admin/validators/nav-item';
 import PostValidator from 'ghost-admin/validators/post';
 import RSVP from 'rsvp';
@@ -12,7 +15,6 @@ import SetupValidator from 'ghost-admin/validators/setup';
 import SigninValidator from 'ghost-admin/validators/signin';
 import SignupValidator from 'ghost-admin/validators/signup';
 import SlackIntegrationValidator from 'ghost-admin/validators/slack-integration';
-import SubscriberValidator from 'ghost-admin/validators/subscriber';
 import TagSettingsValidator from 'ghost-admin/validators/tag-settings';
 import UserValidator from 'ghost-admin/validators/user';
 import WebhookValidator from 'ghost-admin/validators/webhook';
@@ -42,9 +44,9 @@ export default Mixin.create({
         signin: SigninValidator,
         signup: SignupValidator,
         slackIntegration: SlackIntegrationValidator,
-        subscriber: SubscriberValidator,
         tag: TagSettingsValidator,
         user: UserValidator,
+        member: MemberValidator,
         integration: IntegrationValidator,
         webhook: WebhookValidator
     },

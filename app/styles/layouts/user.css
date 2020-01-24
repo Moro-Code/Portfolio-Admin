@@ -21,13 +21,14 @@
 }
 
 .user-actions-menu {
-    top: calc(100% + 17px);
-    right: 0;
+    top: calc(100% + 6px);
+    right: 10px;
     left: auto;
 }
 
 .user-actions-menu.fade-out {
     animation-duration: 0.01s;
+    pointer-events: none;
 }
 
 

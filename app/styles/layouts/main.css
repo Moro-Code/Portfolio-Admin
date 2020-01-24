@@ -348,6 +348,18 @@
     fill: var(--active-menu-color);
 }
 
+.gh-nav-list a svg g {
+    stroke: var(--midgrey);
+}
+
+.gh-nav-list a:not(.active):hover svg g {
+    stroke: var(--darkgrey);
+}
+
+.gh-nav-list .active svg g {
+    stroke: var(--active-menu-color);
+}
+
 .gh-nav-list .gh-secondary-action {
     position: absolute;
     z-index: 999;
@@ -421,6 +433,11 @@
 .gh-nav-bottom .ember-basic-dropdown-trigger:hover {
     background: var(--menu-hover-bg-color);
     border-radius: 5px;
+}
+
+.gh-nav-pro .gh-btn-green {
+    margin: 7px 10px 7px 20px !important;
+    width: calc(100% - 40px) !important;
 }
 
 /* Mobile Nav Menu (Slides out)
@@ -641,19 +658,17 @@
     margin: -3px 0 0 1px;
     padding: 0;
     text-overflow: ellipsis;
+    text-indent: -1px;
     white-space: nowrap;
     font-size: 2.8rem;
     line-height: 1.2em;
     font-weight: 600;
-    letter-spacing: 0.4px;
+    letter-spacing: 0.2px;
     /* match button height to avoid jump on navigation between screens*/
     min-height: 35px;
 }
 
 @media (max-width: 500px) {
-    .gh-canvas-title {
-        display: block;
-    }
     .gh-canvas-title svg {
         margin: 0 5px;
     }
@@ -678,11 +693,11 @@
 /* What's new badges
 /* ---------------------------------------------------- */
 .gh-whats-new-badge-account {
-    top: -6px;
-    right: -6px;
-    border: 1px solid var(--white);
-    width: 12px;
-    height: 12px;
+    top: -4px;
+    right: -4px;
+    border: 2px solid #fff;
+    width: 14px;
+    height: 14px;
 }
 
 
@@ -710,7 +725,7 @@
     font-size: 2.8rem;
     line-height: 1.2em;
     font-weight: 600;
-    letter-spacing: 0.4px;
+    letter-spacing: 0.2px;
     min-height: 35px;
 }
 
@@ -750,6 +765,46 @@
 .view-content p,
 .view-content p * {
     user-select: text;
+}
+
+.view-actions input[type="text"] {
+    padding: 8px 8px 9px;
+    height: 35px;
+    font-size: 1.3rem;
+}
+
+.view-actions .gh-input-search-icon {
+    position: absolute;
+    top: 9px;
+    left: 9px;
+    width: 16px;
+    height: 16px;
+    fill: color-mod(var(--midlightgrey) l(+5%));
+}
+
+.gh-actions-cog {
+    margin-right: 10px
+}
+
+.gh-actions-cog svg {
+    height: 13px;
+    width: 13px;
+    fill: var(--midgrey);
+    margin-right: 0;
+}
+
+.gh-actions-cog svg path {
+    stroke: initial;
+}
+
+.gh-actions-menu {
+    top: calc(100% + 6px);
+    right: 10px;
+    left: auto;
+}
+
+.gh-actions-menu.fade-out {
+    animation-duration: 0.01s;
 }
 
 @media (max-width: 400px) {

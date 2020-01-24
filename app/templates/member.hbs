@@ -1,56 +1,80 @@
 <section class="gh-canvas">
-    <GhCanvasHeader class="gh-canvas-header">
-        <h2 class="gh-canvas-title" data-test-screen-title>
-            {{link-to "Members" "members" data-test-link="members"}}
-            <span>{{svg-jar "arrow-right"}}</span>
-            {{member.name}}
-        </h2>
-    </GhCanvasHeader>
+    <form class="mb10 member-basic-info-form">
+        <GhCanvasHeader class="gh-canvas-header">
+            <h2 class="gh-canvas-title" data-test-screen-title>
+                <LinkTo @route="members" data-test-link="members-back">Members</LinkTo>
+                <span>{{svg-jar "arrow-right"}}</span>
+                {{#if this.member.isNew}}
+                    New member
+                {{else}}
+                    {{or this.member.name this.member.email}}
+                {{/if}}
+            </h2>
+            <section class="view-actions">
+                <GhTaskButton @class="gh-btn gh-btn-blue gh-btn-icon" @type="button" @task={{this.save}} @data-test-button="save" />
+            </section>
+        </GhCanvasHeader>
 
-    <section class="view-container">
-        <div class="br3 bg-white mt2 shadow-1">
-            <div class="flex flex-row pa5 bb b--whitegrey">
-                <GhMemberAvatar class="w20 h20 mr4" @initialsClass="f-subheadline" @member={{member}} />
-                <div class="flex flex-column justify-center">
-                    <h3 class="ma0 pa0 fw5">{{member.name}}</h3>
-                    <span class="db">
-                        <a class="midlightgrey" href="mailto:{{member.email}}">
-                            {{member.email}}
-                        </a>
-                    </span>
+        <div class="flex items-center mb10 bt b--lightgrey-d1 pt8">
+            {{#if (or this.member.name this.member.email)}}
+                <GhMemberAvatar
+                    @member={{this.member}}
+                    @sizeClass={{if this.member.name 'f-subheadline fw4 lh-zero tracked-1' 'f-headline fw4 lh-zero tracked-1'}}
+                    @containerClass="w18 h18 mr4 gh-member-detail-avatar"
+                />
+            {{else}}
+                <div class="flex items-center justify-center br-100 w18 h18 mr4 gh-new-member-avatar">
+                    <span class="gh-member-avatar-label f-subheadline fw4 lh-zero tracked-1">N</span>
                 </div>
-            </div>
-            <div class="flex flex-row">
-                <div class="flex flex-column flex-grow-1 pa5 br b--whitegrey w-50">
-                    <span class="db ttu f8 midlightgrey">Member since</span>
-                    <span class="db f5">{{moment-format member.createdAt "MMMM Do"}}</span>
-                    <span class="db f8 midlightgrey">({{moment-to-now member.createdAt hideAffix=true}})</span>
-                </div>
-                <div class="flex flex-column flex-grow-1 pa5 w-50">
-                    <span class="db ttu f8 midlightgrey">Current plan</span>
-                    <span class="db f5 {{if (eq subscription.plan '...') "midlightgrey"}}">{{subscription.plan}}</span>
-                    {{#unless (eq subscription.amount '...')}}
-                        <span class="db f8 midlightgrey">{{subscription.amount}} USD/month</span>
+            {{/if}}
+            <div>
+                <h3 class="f2 fw5 ma0 pa0">
+                    {{or this.member.name this.member.email}}
+                </h3>
+                <p class="f6 pa0 ma0 midlightgrey-d1">
+                    {{#if (and this.member.name this.member.email)}}
+                        <span class="darkgrey fw5">{{this.member.email}}</span>
+                    {{/if}}
+                    {{#unless this.member.isNew}}
+                        {{if (and this.member.name this.member.email) "–"}}
+                        Created on {{this.subscribedAt}}
                     {{/unless}}
-                </div>
+                </p>
             </div>
         </div>
 
-        <h2 class="pb1 bb b--whitegrey-d1 f-small fw5 midlightgrey ttu mt10 pb2">Danger zone</h2>
+        <GhMemberSettingsForm
+            @member={{this.member}}
+            @scratchMember={{this.scratchMember}}
+            @setProperty={{action "setProperty"}}
+            @isLoading={{this.isLoading}} />
+    </form>
+
+    {{#unless this.member.isNew}}
         <button
             type="button"
             class="gh-btn gh-btn-red gh-btn-icon mt3"
-            {{action (toggle "showDeleteMemberModal" this)}}
+            {{on "click" (action "toggleDeleteMemberModal")}}
             data-test-button="delete-member"
         >
             <span>Delete member</span>
         </button>
-    </section>
+    {{/unless}}
 </section>
 
-{{#if showDeleteMemberModal}}
-    {{gh-fullscreen-modal "delete-member"
-        model=(hash member=member onSuccess=(action "finaliseDeletion"))
-        close=(action (toggle "showDeleteMemberModal" this))
-        modifier="action wide"}}
+{{#if this.showUnsavedChangesModal}}
+    <GhFullscreenModal
+        @modal="leave-settings"
+        @confirm={{action "leaveScreen"}}
+        @close={{action "toggleUnsavedChangesModal"}}
+        @modifier="action wide" />
+{{/if}}
+
+{{#if this.showDeleteMemberModal}}
+    <GhFullscreenModal
+        @modal="delete-member"
+        @model={{this.member}}
+        @confirm={{action "deleteMember"}}
+        @close={{action "toggleDeleteMemberModal"}}
+        @modifier="action wide" />
 {{/if}}

@@ -38,7 +38,7 @@
     border: transparent 1px solid;
     border-radius: 4px;
     color: #7d878a;
-    font-weight: 100;
+    font-weight: 300;
     transition: all 0.3s ease;
 }
 
@@ -118,6 +118,10 @@
     stroke-width: 2px;
 }
 
+.gh-flow-nav .step svg path {
+    stroke: #fff;
+}
+
 .gh-flow-nav .active ~ li:not(divider) .step {
     border: #e3e3e3 2px solid;
     background: transparent;
@@ -163,7 +167,7 @@
     text-align: center;
     font-size: 1.9rem;
     line-height: 1.5em;
-    font-weight: 100;
+    font-weight: 300;
 }
 
 @media (max-width: 500px) {
@@ -179,7 +183,7 @@
 
 .gh-flow-content h1 {
     font-size: 4.2rem;
-    font-weight: 100;
+    font-weight: 300;
 }
 
 @media (max-width: 600px) {
@@ -231,6 +235,16 @@
     max-width: 400px;
 }
 
+.gh-flow-content .login span {
+    height: 37px !important;
+    line-height: 37px !important;
+}
+
+.gh-flow-content .gh-input:focus {
+    box-shadow: none;
+    border-color: color-mod(var(--midlightgrey) l(+10%));
+}
+
 .gh-flow-content .gh-flow-skip {
     display: inline-block;
     margin-top: 5px;
@@ -249,6 +263,11 @@
     border-radius: 5px;
     text-align: left;
     box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.1);
+}
+
+.gh-flow-create .gh-btn-create-account span {
+    height: 37px;
+    line-height: 37px;
 }
 
 .gh-flow-content .account-image {
@@ -339,7 +358,7 @@
 }
 
 .gh-flow-content .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 20px !important;
 }
 
 .gh-flow-content .form-group label {
@@ -354,7 +373,7 @@
 
 .gh-flow-content input {
     padding: 10px 10px 10px 30px;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     line-height: 1.4em;
     font-weight: 400;
 }
